@@ -2,54 +2,79 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import joblib
+import cv2
 
-# -------------------------
+# -----------------------------
 # Page Configuration
-# -------------------------
-
+# -----------------------------
 st.set_page_config(
     page_title="Cat vs Dog Classifier",
     page_icon="🐶",
     layout="centered"
 )
 
-# -------------------------
+# -----------------------------
 # Load Model
-# -------------------------
+# -----------------------------
+@st.cache_resource
+def load_model():
+    return joblib.load("cat_dog_model.pkl")
 
-model = joblib.load("cat_dog_model.pkl")
+model = load_model()
 
 IMG_SIZE = 64
 
-st.title("🐱 Cat vs Dog Image Classifier")
+# -----------------------------
+# Title
+# -----------------------------
+st.title("🐱 Cat vs 🐶 Dog Classifier")
+st.write("Upload an image and let the AI predict whether it is a **Cat** or a **Dog**.")
 
-st.write("Upload an image to predict whether it is a Cat or Dog.")
-
+# -----------------------------
+# Upload Image
+# -----------------------------
 uploaded_file = st.file_uploader(
-    "Choose an Image",
+    "Choose an image",
     type=["jpg", "jpeg", "png"]
 )
 
 if uploaded_file is not None:
 
-    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
+    try:
+        # Read image using PIL
+        image = Image.open(uploaded_file).convert("RGB")
 
-    image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+        # Display image
+        st.image(image, caption="Uploaded Image", use_container_width=True)
 
-    st.image(image, channels="BGR", width=300)
+        # Convert to numpy array
+        image_np = np.array(image)
 
-    resized = cv2.resize(image, (IMG_SIZE, IMG_SIZE))
+        # Resize
+        image_resized = cv2.resize(image_np, (IMG_SIZE, IMG_SIZE))
 
-    resized = resized.flatten()
+        # Flatten
+        image_flatten = image_resized.flatten()
 
-    prediction = model.predict([resized])[0]
+        # Prediction
+        prediction = model.predict([image_flatten])[0]
 
-    probability = model.predict_proba([resized])[0]
+        # Probability
+        if hasattr(model, "predict_proba"):
+            probability = model.predict_proba([image_flatten])[0]
+        else:
+            probability = None
 
-    if prediction == 0:
-        st.success("🐱 Prediction: CAT")
-    else:
-        st.success("🐶 Prediction: DOG")
+        # Display Result
+        if prediction == 0:
+            st.success("🐱 Prediction: CAT")
+        else:
+            st.success("🐶 Prediction: DOG")
 
-    st.write(f"Cat Probability : {probability[0]*100:.2f}%")
-    st.write(f"Dog Probability : {probability[1]*100:.2f}%")
+        # Display Confidence
+        if probability is not None:
+            st.write(f"**🐱 Cat Probability:** {probability[0]*100:.2f}%")
+            st.write(f"**🐶 Dog Probability:** {probability[1]*100:.2f}%")
+
+    except Exception as e:
+        st.error(f"Error: {e}")
