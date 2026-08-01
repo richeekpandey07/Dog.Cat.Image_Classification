@@ -284,32 +284,71 @@ st.markdown("---")
         # =====================================
         # PROJECT STATS
         # =====================================
-        st.subheader("📊 Project Statistics")
+st.markdown("## 📊 Project Statistics")
 
-        c1, c2, c3, c4 = st.columns(4)
+col1, col2, col3, col4 = st.columns(4)
 
-        c1.metric(
-            "Classes",
-            "2"
-        )
+with col1:
+    st.markdown("""
+    <div style="
+    background:linear-gradient(135deg,#06b6d4,#3b82f6);
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    color:white;">
+    <h3>2</h3>
+    <p>Classes</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-        c2.metric(
-            "Image Size",
-            "64x64"
-        )
+with col2:
+    st.markdown("""
+    <div style="
+    background:linear-gradient(135deg,#7c3aed,#a855f7);
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    color:white;">
+    <h3>64×64</h3>
+    <p>Image Size</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-        c3.metric(
-            "Framework",
-            "Streamlit"
-        )
+with col3:
+    st.markdown("""
+    <div style="
+    background:linear-gradient(135deg,#ec4899,#f43f5e);
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    color:white;">
+    <h3>Streamlit</h3>
+    <p>Framework</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-        c4.metric(
-            "Model",
-            "Scikit-Learn"
-        )
-
+with col4:
+    st.markdown("""
+    <div style="
+    background:linear-gradient(135deg,#f59e0b,#f97316);
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    color:white;">
+    <h3>ML</h3>
+    <p>Model</p>
+    </div>
+    """, unsafe_allow_html=True)
     except Exception as e:
         st.error(f"Error : {e}")
+    
+    st.markdown("### 🚀 Model Highlights")
+
+a, b, c = st.columns(3)
+
+a.info("⚡ Real-Time Prediction")
+b.info("🤖 Machine Learning Powered")
+c.info("📸 Image Classification")
 
 # =====================================
 # AI WORKFLOW
