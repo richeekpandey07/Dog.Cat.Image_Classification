@@ -205,6 +205,8 @@ uploaded_file = st.file_uploader(
 # =====================================
 # PREDICTION
 # =====================================
+prediction = model.predict([image_flatten])[0]
+
 if prediction == 0:
     st.markdown("""
     <div class='prediction-card'>
