@@ -224,30 +224,63 @@ st.toast("Prediction Complete 🚀")
         # =====================================
         # CHART
         # =====================================
-        if probability is not None:
+       # =====================================
+# CHART
+# =====================================
+if probability is not None:
 
-            st.markdown("---")
-            st.subheader("📈 Prediction Analytics")
+    import plotly.express as px
 
-            chart_data = pd.DataFrame({
-                "Class": ["Cat", "Dog"],
-                "Probability": [
-                    cat_prob * 100,
-                    dog_prob * 100
-                ]
-            })
+    st.markdown("---")
+    st.subheader("📈 Prediction Analytics Dashboard")
 
-            st.bar_chart(
-                chart_data.set_index("Class")
-            )
+    chart_data = pd.DataFrame({
+        "Class": ["🐱 Cat", "🐶 Dog"],
+        "Probability": [
+            cat_prob * 100,
+            dog_prob * 100
+        ]
+    })
 
-        st.markdown("---")
-        st.markdown("### 🎯 Prediction Summary"
-                    winner = max(cat_prob, dog_prob) * 100
+    fig = px.bar(
+        chart_data,
+        x="Class",
+        y="Probability",
+        text="Probability",
+        title="Prediction Confidence Score"
+    )
 
-         st.info(
-         f"Model confidence is {winner:.2f}% for the predicted class."
-          )
+    fig.update_traces(
+        texttemplate='%{text:.2f}%',
+        textposition='outside'
+    )
+
+    fig.update_layout(
+        height=500,
+        xaxis_title="Pet Category",
+        yaxis_title="Confidence (%)",
+        yaxis_range=[0,100]
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
+    st.markdown("### 🎯 AI Decision Summary")
+
+    winner = max(cat_prob, dog_prob) * 100
+
+    if prediction == 0:
+        st.success(
+            f"🐱 The model predicts this image is a CAT with {winner:.2f}% confidence."
+        )
+    else:
+        st.success(
+            f"🐶 The model predicts this image is a DOG with {winner:.2f}% confidence."
+        )
+
+st.markdown("---")
         # =====================================
         # PROJECT STATS
         # =====================================
