@@ -284,72 +284,83 @@ st.markdown("---")
         # =====================================
         # PROJECT STATS
         # =====================================
-st.markdown("## 📊 Project Statistics")
+try:
 
-col1, col2, col3, col4 = st.columns(4)
+    # prediction code
+    # chart code
+    # statistics code
 
-with col1:
-    st.markdown("""
-    <div style="
-    background:linear-gradient(135deg,#06b6d4,#3b82f6);
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-    color:white;">
-    <h3>2</h3>
-    <p>Classes</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("## 📊 Project Statistics")
 
-with col2:
-    st.markdown("""
-    <div style="
-    background:linear-gradient(135deg,#7c3aed,#a855f7);
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-    color:white;">
-    <h3>64×64</h3>
-    <p>Image Size</p>
-    </div>
-    """, unsafe_allow_html=True)
+    col1, col2, col3, col4 = st.columns(4)
 
-with col3:
-    st.markdown("""
-    <div style="
-    background:linear-gradient(135deg,#ec4899,#f43f5e);
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-    color:white;">
-    <h3>Streamlit</h3>
-    <p>Framework</p>
-    </div>
-    """, unsafe_allow_html=True)
+    with col1:
+        st.markdown("""
+        <div style="
+        background:linear-gradient(135deg,#06b6d4,#3b82f6);
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        color:white;">
+        <h3>2</h3>
+        <p>Classes</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-with col4:
-    st.markdown("""
-    <div style="
-    background:linear-gradient(135deg,#f59e0b,#f97316);
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-    color:white;">
-    <h3>ML</h3>
-    <p>Model</p>
-    </div>
-    """, unsafe_allow_html=True)
-    except Exception as e:
-        st.error(f"Error : {e}")
-    
+    with col2:
+        st.markdown("""
+        <div style="
+        background:linear-gradient(135deg,#7c3aed,#a855f7);
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        color:white;">
+        <h3>64×64</h3>
+        <p>Image Size</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown("""
+        <div style="
+        background:linear-gradient(135deg,#ec4899,#f43f5e);
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        color:white;">
+        <h3>Streamlit</h3>
+        <p>Framework</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col4:
+        st.markdown("""
+        <div style="
+        background:linear-gradient(135deg,#f59e0b,#f97316);
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        color:white;">
+        <h3>ML</h3>
+        <p>Model</p>
+        </div>
+        """, unsafe_allow_html=True)
+
     st.markdown("### 🚀 Model Highlights")
 
-a, b, c = st.columns(3)
+    a, b, c = st.columns(3)
 
-a.info("⚡ Real-Time Prediction")
-b.info("🤖 Machine Learning Powered")
-c.info("📸 Image Classification")
+    with a:
+        st.success("⚡ Real-Time Prediction")
 
+    with b:
+        st.success("🤖 Machine Learning Powered")
+
+    with c:
+        st.success("📸 Image Classification")
+
+except Exception as e:
+    st.error(f"Error: {e}")
 # =====================================
 # AI WORKFLOW
 # =====================================
