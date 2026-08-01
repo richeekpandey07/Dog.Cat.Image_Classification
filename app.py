@@ -30,34 +30,92 @@ IMG_SIZE = 64
 # =====================================
 st.markdown("""
 <style>
-.main {
-    padding-top: 1rem;
+
+.stApp{
+background: linear-gradient(135deg,#0f172a,#1e293b,#312e81);
 }
 
-.feature-card {
-    background-color: #1e1e1e;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #333;
-    margin-bottom: 10px;
+section[data-testid="stSidebar"]{
+background: linear-gradient(180deg,#141E30,#243B55);
 }
 
-.dev-card {
-    background: linear-gradient(135deg,#141E30,#243B55);
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-    color:white;
+.main-header{
+background: linear-gradient(90deg,#06b6d4,#8b5cf6);
+padding:25px;
+border-radius:20px;
+text-align:center;
+color:white;
+box-shadow:0px 5px 20px rgba(0,0,0,0.3);
 }
 
-.footer {
-    text-align:center;
-    color:gray;
-    margin-top:20px;
+.feature1{
+background:linear-gradient(135deg,#06b6d4,#3b82f6);
+padding:15px;
+border-radius:15px;
+text-align:center;
+color:white;
+font-weight:bold;
 }
+
+.feature2{
+background:linear-gradient(135deg,#7c3aed,#a855f7);
+padding:15px;
+border-radius:15px;
+text-align:center;
+color:white;
+font-weight:bold;
+}
+
+.feature3{
+background:linear-gradient(135deg,#ec4899,#f43f5e);
+padding:15px;
+border-radius:15px;
+text-align:center;
+color:white;
+font-weight:bold;
+}
+
+.feature4{
+background:linear-gradient(135deg,#f59e0b,#f97316);
+padding:15px;
+border-radius:15px;
+text-align:center;
+color:white;
+font-weight:bold;
+}
+
+.prediction-card{
+background:linear-gradient(135deg,#10b981,#34d399);
+padding:20px;
+border-radius:15px;
+text-align:center;
+color:white;
+font-size:25px;
+font-weight:bold;
+}
+
+.workflow-card{
+background:linear-gradient(135deg,#4338ca,#7c3aed);
+padding:20px;
+border-radius:15px;
+color:white;
+}
+
+.dev-card{
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+padding:25px;
+border-radius:20px;
+text-align:center;
+color:white;
+}
+
+.footer{
+text-align:center;
+color:white;
+}
+
 </style>
 """, unsafe_allow_html=True)
-
 # =====================================
 # SIDEBAR
 # =====================================
@@ -108,35 +166,31 @@ st.sidebar.info("""
 # HEADER
 # =====================================
 st.markdown("""
-<div style='text-align:center'>
+<div class='main-header'>
 <h1>🐱 VS 🐶</h1>
 <h3>AI Powered Pet Recognition System</h3>
 <p>Machine Learning • Computer Vision • Streamlit</p>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("---")
-
 # =====================================
 # FEATURES
 # =====================================
 st.subheader("✨ Smart Features")
 
-col1, col2, col3 = st.columns(3)
+c1,c2,c3,c4 = st.columns(4)
 
-with col1:
-    st.success("📸 Upload JPG / PNG Images")
-    st.success("⚡ Instant Prediction")
+with c1:
+    st.markdown("<div class='feature1'>📸 Image Upload</div>", unsafe_allow_html=True)
 
-with col2:
-    st.success("🤖 Machine Learning Powered")
-    st.success("📊 Confidence Scores")
+with c2:
+    st.markdown("<div class='feature2'>🤖 AI Prediction</div>", unsafe_allow_html=True)
 
-with col3:
-    st.success("🎨 Interactive Dashboard")
-    st.success("🌐 Deployment Ready")
+with c3:
+    st.markdown("<div class='feature3'>📊 Confidence Score</div>", unsafe_allow_html=True)
 
-st.markdown("---")
+with c4:
+    st.markdown("<div class='feature4'>⚡ Fast Processing</div>", unsafe_allow_html=True)
 
 # =====================================
 # IMAGE UPLOAD
@@ -151,65 +205,22 @@ uploaded_file = st.file_uploader(
 # =====================================
 # PREDICTION
 # =====================================
-if uploaded_file is not None:
+if prediction == 0:
+    st.markdown("""
+    <div class='prediction-card'>
+    🐱 CAT DETECTED
+    </div>
+    """, unsafe_allow_html=True)
 
-    try:
+else:
+    st.markdown("""
+    <div class='prediction-card'>
+    🐶 DOG DETECTED
+    </div>
+    """, unsafe_allow_html=True)
 
-        image = Image.open(uploaded_file).convert("RGB")
-
-        col1, col2 = st.columns([1, 1])
-
-        with col1:
-            st.image(
-                image,
-                caption="Uploaded Image",
-                use_container_width=True
-            )
-
-        image_np = np.array(image)
-
-        image_resized = cv2.resize(
-            image_np,
-            (IMG_SIZE, IMG_SIZE)
-        )
-
-        image_flatten = image_resized.flatten()
-
-        prediction = model.predict([image_flatten])[0]
-
-        if hasattr(model, "predict_proba"):
-            probability = model.predict_proba(
-                [image_flatten]
-            )[0]
-        else:
-            probability = None
-
-        with col2:
-
-            st.subheader("🤖 Prediction Result")
-
-            if prediction == 0:
-                st.success("🐱 CAT DETECTED")
-            else:
-                st.success("🐶 DOG DETECTED")
-
-            if probability is not None:
-
-                cat_prob = float(probability[0])
-                dog_prob = float(probability[1])
-
-                st.markdown("### 📊 Confidence Score")
-
-                st.write(
-                    f"🐱 Cat : {cat_prob*100:.2f}%"
-                )
-                st.progress(cat_prob)
-
-                st.write(
-                    f"🐶 Dog : {dog_prob*100:.2f}%"
-                )
-                st.progress(dog_prob)
-
+st.balloons()
+st.toast("Prediction Complete 🚀")
         # =====================================
         # CHART
         # =====================================
@@ -231,7 +242,12 @@ if uploaded_file is not None:
             )
 
         st.markdown("---")
+        st.markdown("### 🎯 Prediction Summary"
+                    winner = max(cat_prob, dog_prob) * 100
 
+         st.info(
+         f"Model confidence is {winner:.2f}% for the predicted class."
+          )
         # =====================================
         # PROJECT STATS
         # =====================================
@@ -265,58 +281,81 @@ if uploaded_file is not None:
 # =====================================
 # AI WORKFLOW
 # =====================================
+st.markdown("""
+<div class='workflow-card'>
+
+<h3>🧠 AI Workflow</h3>
+
+📤 Upload Image <br><br>
+
+⬇️ <br><br>
+
+🖼️ Image Processing <br><br>
+
+⬇️ <br><br>
+
+🔍 Feature Extraction <br><br>
+
+⬇️ <br><br>
+
+🤖 Scikit-Learn Model <br><br>
+
+⬇️ <br><br>
+
+📊 Confidence Analysis <br><br>
+
+⬇️ <br><br>
+
+✅ Final Prediction
+
+</div>
+""", unsafe_allow_html=True)
+# =====================================
+# DEVELOPER CARD
+# =====================================
 st.markdown("---")
 
-st.subheader("🧠 AI Workflow")
+st.markdown("""
+<div class="dev-card">
 
-st.code("""
-📤 Upload Image
-        ↓
-🖼️ Image Processing
-        ↓
-🔍 Feature Extraction
-        ↓
-🤖 Scikit-Learn Model
-        ↓
-📊 Confidence Score
-        ↓
-✅ Final Prediction
-""")
+<h2>👨‍💻 Richeek Pandey</h2>
 
-# # =====================================
-# # DEVELOPER CARD
-# # =====================================
-# st.markdown("---")
+<h4>AI/ML Enthusiast • Data Science Learner</h4>
 
-# st.markdown("""
-# <div class="dev-card">
+<p>
+Building Machine Learning & Data Science Projects
+</p>
 
-# <h2>👨‍💻 Developed by Richeek Pandey</h2>
+<p>
+<a href="https://www.linkedin.com/in/richeek-pandey-9954783a9" target="_blank">
+🔗 LinkedIn
+</a>
 
-# <p>
-# AI/ML Enthusiast • Data Science Learner • B.Tech IT
-# </p>
+&nbsp;&nbsp;&nbsp;&nbsp;
 
-# <p>
-# <a href="https://www.linkedin.com/in/richeek-pandey-9954783a9" target="_blank">
-# 🔗 LinkedIn
-# </a>
-# &nbsp;&nbsp;&nbsp;
-# <a href="https://github.com/richeekpandey07" target="_blank">
-# 💻 GitHub
-# </a>
-# </p>
+<a href="https://github.com/richeekpandey07" target="_blank">
+💻 GitHub
+</a>
+</p>
 
-# </div>
-# """, unsafe_allow_html=True)
-
+</div>
+""", unsafe_allow_html=True)
 # =====================================
 # FOOTER
 # =====================================
 st.markdown("""
 <div class="footer">
 <hr>
-🐱🐶 Cat vs Dog Classifier <br>
-Built with Streamlit, OpenCV & Scikit-Learn
+
+🚀 Cat vs Dog AI Classifier
+
+<br>
+
+Built with ❤️ using Streamlit, OpenCV & Scikit-Learn
+
+<br><br>
+
+© 2026 Richeek Pandey
+
 </div>
 """, unsafe_allow_html=True)
