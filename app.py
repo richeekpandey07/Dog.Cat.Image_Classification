@@ -78,3 +78,17 @@ if uploaded_file is not None:
 
     except Exception as e:
         st.error(f"Error: {e}")
+        
+st.sidebar.info("""
+### 🚀 About Developer
+
+**Richeek Pandey**
+
+AI/ML Enthusiast | Data Science Learner | B.Tech IT
+
+🔗 LinkedIn:
+https://www.linkedin.com/in/richeek-pandey-9954783a9
+
+💻 GitHub:
+https://github.com/richeekpandey07
+""")
