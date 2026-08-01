@@ -283,32 +283,32 @@ st.code("""
 ✅ Final Prediction
 """)
 
-# =====================================
-# DEVELOPER CARD
-# =====================================
-st.markdown("---")
+# # =====================================
+# # DEVELOPER CARD
+# # =====================================
+# st.markdown("---")
 
-st.markdown("""
-<div class="dev-card">
+# st.markdown("""
+# <div class="dev-card">
 
-<h2>👨‍💻 Developed by Richeek Pandey</h2>
+# <h2>👨‍💻 Developed by Richeek Pandey</h2>
 
-<p>
-AI/ML Enthusiast • Data Science Learner • B.Tech IT
-</p>
+# <p>
+# AI/ML Enthusiast • Data Science Learner • B.Tech IT
+# </p>
 
-<p>
-<a href="https://www.linkedin.com/in/richeek-pandey-9954783a9" target="_blank">
-🔗 LinkedIn
-</a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://github.com/richeekpandey07" target="_blank">
-💻 GitHub
-</a>
-</p>
+# <p>
+# <a href="https://www.linkedin.com/in/richeek-pandey-9954783a9" target="_blank">
+# 🔗 LinkedIn
+# </a>
+# &nbsp;&nbsp;&nbsp;
+# <a href="https://github.com/richeekpandey07" target="_blank">
+# 💻 GitHub
+# </a>
+# </p>
 
-</div>
-""", unsafe_allow_html=True)
+# </div>
+# """, unsafe_allow_html=True)
 
 # =====================================
 # FOOTER
