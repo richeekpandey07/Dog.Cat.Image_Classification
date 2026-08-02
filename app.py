@@ -31,7 +31,7 @@ except Exception as e:
 IMG_SIZE = 64
 
 # =====================================
-# CUSTOM CSS (Fixes Text & Component Visibility)
+# CUSTOM CSS (Dark Theme & Contrast Fixes)
 # =====================================
 st.markdown("""
 <style>
@@ -41,7 +41,7 @@ st.markdown("""
     color: #ffffff;
 }
 
-/* Force Contrast on Text Elements */
+/* Force High Text Contrast Across All Elements */
 html, body, [class*="css"], p, label, div, span, h1, h2, h3, h4, h5, h6 {
     color: #ffffff !important;
 }
@@ -49,6 +49,46 @@ html, body, [class*="css"], p, label, div, span, h1, h2, h3, h4, h5, h6 {
 /* Sidebar Styling */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #141E30, #243B55);
+}
+
+/* SIDEBAR TOGGLE ARROW FIX */
+button[data-testid="stSidebarCollapseButton"],
+button[data-testid="stHeaderIconButton"] {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    padding: 4px !important;
+}
+
+button[data-testid="stSidebarCollapseButton"]:hover,
+button[data-testid="stHeaderIconButton"]:hover {
+    background-color: #06b6d4 !important;
+    color: #ffffff !important;
+}
+
+/* FILE UPLOADER CONTAINER FIX */
+[data-testid="stFileUploader"] {
+    background-color: #1e293b !important;
+    padding: 20px !important;
+    border-radius: 15px !important;
+    border: 2px dashed #06b6d4 !important;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-testid="stFileUploader"] label, 
+[data-testid="stFileUploader"] span, 
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploaderDropzoneInstructions"] {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+[data-testid="stFileUploader"] button {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
 }
 
 /* Header Container */
@@ -101,14 +141,6 @@ section[data-testid="stSidebar"] {
     color: #ffffff !important;
     font-weight: bold;
     text-decoration: underline;
-}
-
-/* File Uploader Container Fix */
-[data-testid="stFileUploader"] {
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 15px;
-    border: 1px dashed #06b6d4;
 }
 
 .footer {
